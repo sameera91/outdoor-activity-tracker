@@ -1,3 +1,5 @@
+<a href="/activities"><input type="submit" value="Activities"></a> <a href="/locations"><input type="submit" value="Locations"></a> <a href="logout"><input type="submit" value="Log Out"></a>
+
 <h1>Activity Details</h1>
 
 Name:<br>
@@ -9,6 +11,11 @@ Time:<br>
 Distance:<br>
 <%= @activity.distance %><br><br>
 
+Location:<br>
+<% if @activity.location != nil %>
+<%= @activity.location.name %>
+<% end %>
+<br><br>
 Notes:<br>
 <%= @activity.notes %><br><br>
 
@@ -19,4 +26,3 @@ Notes:<br>
   <input type="submit" id="Delete Activity" value="Delete Activity"><br>
 </form>
 
-<a href="/activities"><input type="submit" value="Back to Activities"></a><br><br>

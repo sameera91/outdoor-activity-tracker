@@ -1,0 +1,35 @@
+<a href="/activities"><input type="submit" value="Activities"></a> <a href="/locations"><input type="submit" value="Locations"></a> <a href="logout"><input type="submit" value="Log Out"></a>
+
+<h1>Location Details</h1>
+
+Name:<br>
+
+<%= @location.name %><br><br>
+
+City:<br>
+<%= @location.city %><br><br>
+
+State:<br>
+<%= @location.state %><br><br>
+
+Country:<br>
+<%= @location.country %><br><br>
+
+<h1>Your list of activities at this location</h1>
+<% Activity.all.each do |activity| %>
+ <% if activity.location != nil %>
+   <% if activity.location.name == @location.name %>
+     <a href="/activities/<%=activity.id%>"><%= activity.name %></a><br>
+   <% end %>
+ <% end %>
+<% end %>
+<br><br>
+<a href="/activities/new"><input type="submit" value="Add a new activity"></a>
+<br><br>
+<a href="/locations/<%=@location.id%>/edit"><input type="submit" value="Edit Location"></a><br><br>
+
+<form method="post" action="/locations/<%=@location.id%>/delete">
+  <input id="hidden" type="hidden" name="_method" value="DELETE">
+  <input type="submit" id="Delete Location" value="Delete Location"><br>
+</form>
+

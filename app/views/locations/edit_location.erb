@@ -1,0 +1,18 @@
+<a href="/activities"><input type="submit" value="Activities"></a> <a href="/locations"><input type="submit" value="Locations"></a> <a href="logout"><input type="submit" value="Log Out"></a>
+
+<h1>Edit Location</h1>
+
+<form method="post" action="/locations/<%=@location.id%>">
+  <input id="hidden" type="hidden" name="_method" value="PATCH">
+  <p>Name:</p>
+  <input type="text" placeholder="shenandoah valley" name="name">
+  <p>City:</p>
+  <input type="text" placeholder="Roanoke" name="city">
+  <p>State:</p>
+  <input type="text" placeholder="VA" name="state">
+  <br><br>
+  <p>Country:</p>
+  <input type="text" placeholder="United States" name="country">
+  <br><br>
+  <input type="submit" id="submit" value="Edit location">
+</form>

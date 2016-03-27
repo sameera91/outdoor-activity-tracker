@@ -22,8 +22,10 @@ class ApplicationController < Sinatra::Base
   end
 
   post '/activities' do
-    @activity = Activity.create(params)
+    @activity = Activity.create(name: params[:name], time: params[:time], distance: params[:distance])
+    @activity.location = Location.create(name: params[:location])
     @activity.save
+    redirect '/activities'
   end
 
   get '/signup' do
@@ -34,7 +36,7 @@ class ApplicationController < Sinatra::Base
       if params[:username] != "" && params[:email] != "" && params[:password] != ""
         @user = User.create(username: params[:username], email: params[:email], password: params[:password])
         session[:user_id] = @user.id
-        redirect '/activities'
+        redirect '/locations'
       else
         redirect '/signup'
       end
@@ -52,7 +54,7 @@ class ApplicationController < Sinatra::Base
     @user = User.find_by(username: params[:username])
     if @user && @user.authenticate(params[:password])
        session[:user_id] = @user.id
-       redirect "/activities"
+       redirect "/locations"
      else
        erb :"users/login", locals: {message: "Invalid username or password! Please try again."}
      end
@@ -91,6 +93,45 @@ class ApplicationController < Sinatra::Base
     @activity.notes = params["notes"] if params["notes"] != ''
     @activity.save
     redirect "/activities/#{@activity.id}"
+  end
+
+  get '/locations/new' do
+    erb :"locations/create_location"
+  end
+
+  get '/locations' do
+    erb :"locations/locations"
+  end
+
+  get '/locations/:id' do
+    @location = Location.find(params[:id])
+    erb :"locations/show_location"
+  end
+
+  post '/locations' do
+    @location = Location.create(params)
+    erb :"locations/locations"
+  end
+
+  get '/locations/:id/edit' do
+    @location = Location.find_by(id: params[:id])
+    erb :"locations/edit_location"
+  end
+
+  patch '/locations/:id' do
+    @location = Location.find(params[:id])
+    @location.name = params["name"] if params["name"] != ''
+    @location.city = params["city"] if params["city"] != ''
+    @location.state = params["state"] if params["state"] != ''
+    @location.country = params["country"] if params["country"] != ''
+    @location.save
+    redirect "/locations/#{@location.id}"
+  end
+
+  delete '/locations/:id/delete' do
+    @location = Location.find_by(id: params[:id])
+    @location.delete
+    erb :"locations/locations"
   end
 
   helpers do

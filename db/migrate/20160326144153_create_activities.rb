@@ -5,7 +5,8 @@ class CreateActivities < ActiveRecord::Migration
       t.string :time
       t.string :distance
       t.string :notes
-      t.string :user_id
+      t.integer :user_id
+      t.integer :location_id
     end
   end
 end
