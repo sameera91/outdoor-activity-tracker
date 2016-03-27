@@ -1,6 +1,8 @@
 <a href="logout"><input type="submit" value="Log Out"></a>
 
-<h1>Your recent locations:</h1>
+<h1>Your recent locations</h1>
+
+<h3>This is a list of all the places you've visited recently. Click on any location to see the details.</h3>
 
 <% Location.all.each do |location| %>
   <a href="/locations/<%=location.id%>"><%= location.name %></a><br>

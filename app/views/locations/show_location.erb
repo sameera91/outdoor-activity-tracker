@@ -15,11 +15,12 @@ State:<br>
 Country:<br>
 <%= @location.country %><br><br>
 
-<h1>Your list of activities at this location</h1>
+<h2>What you have done recently at this location:</h2>
+<h3>Click on any activity for more information.</h3>
 <% Activity.all.each do |activity| %>
  <% if activity.location != nil %>
    <% if activity.location.name == @location.name %>
-     <a href="/activities/<%=activity.id%>"><%= activity.name %></a><br>
+     <a href="/activities/<%=activity.id%>"><%= activity.name %> on <%= activity.date %></a><br>
    <% end %>
  <% end %>
 <% end %>

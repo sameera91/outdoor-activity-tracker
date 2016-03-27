@@ -22,7 +22,7 @@ class ApplicationController < Sinatra::Base
   end
 
   post '/activities' do
-    @activity = Activity.create(name: params[:name], time: params[:time], distance: params[:distance])
+    @activity = Activity.create(name: params[:name], date: params[:date], time: params[:time], distance: params[:distance])
     @activity.location = Location.create(name: params[:location])
     @activity.save
     redirect '/activities'
