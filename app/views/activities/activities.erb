@@ -1,0 +1,7 @@
+<h1>Your recent activities:</h1>
+
+<% Activity.all.each do |activity| %>
+  <a href="/activities/<%=activity.id%>"><%= activity.name %></a><br>
+<% end %>
+<br>
+<a href="logout"><input type="submit" value="Log Out"></a>

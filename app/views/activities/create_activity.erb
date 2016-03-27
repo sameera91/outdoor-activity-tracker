@@ -1,0 +1,15 @@
+<h1>Create an Outdoor Activity:</h1>
+
+<p>Enter the following information about your activity:</p>
+<form method="post" action="/activities">
+  <p>Name (e.g. running, hiking, biking, rowing):</p>
+  <input type="text" placeholder="hiking" name="name">
+  <p>Time spent or pace:</p>
+  <input type="text" placeholder="13:00" name="time">
+  <p>Distance:</p>
+  <input type="text" placeholder="3 miles" name="distance" id="distance">
+
+  <p>Use this space to reflect on your activity and to jot down any other notes:</p>
+  <textarea rows="4" cols="50" name="notes" id="notes"></textarea><br><br>
+  <input type="submit" id="submit" value="Create a new activity!">
+</form>

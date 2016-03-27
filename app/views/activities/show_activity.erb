@@ -1,0 +1,22 @@
+<h1>Activity Details</h1>
+
+Name:<br>
+<%= @activity.name %><br><br>
+
+Time:<br>
+<%= @activity.time %><br><br>
+
+Distance:<br>
+<%= @activity.distance %><br><br>
+
+Notes:<br>
+<%= @activity.notes %><br><br>
+
+<a href="/activities/<%=@activity.id%>/edit"><input type="submit" value="Edit Activity"></a><br><br>
+
+<form method="post" action="/activities/<%=@activity.id%>/delete">
+  <input id="hidden" type="hidden" name="_method" value="DELETE">
+  <input type="submit" id="Delete Activity" value="Delete Activity"><br>
+</form>
+
+<a href="/activities"><input type="submit" value="Back to Activities"></a><br><br>
