@@ -14,13 +14,13 @@
 ActiveRecord::Schema.define(version: 20160326172801) do
 
   create_table "activities", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "date"
-    t.string   "time"
-    t.string   "distance"
-    t.string   "notes"
-    t.integer  "user_id"
-    t.integer  "location_id"
+    t.string  "name"
+    t.date    "date"
+    t.string  "time"
+    t.string  "distance"
+    t.string  "notes"
+    t.integer "user_id"
+    t.integer "location_id"
   end
 
   create_table "locations", force: :cascade do |t|

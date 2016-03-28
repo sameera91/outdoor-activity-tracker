@@ -44,7 +44,7 @@ class ApplicationController < Sinatra::Base
 
   get '/login' do
     if is_logged_in
-      redirect '/activities'
+      redirect '/locations'
     else
       erb :"users/login"
     end
@@ -132,6 +132,28 @@ class ApplicationController < Sinatra::Base
     @location = Location.find_by(id: params[:id])
     @location.delete
     erb :"locations/locations"
+  end
+
+  get '/users/:id' do
+    @user = User.find_by(id: params[:id])
+    erb :"users/show_user"
+  end
+
+  get '/users/:id/edit' do
+    @user = User.find_by(id: params[:id])
+    if is_logged_in
+      erb :"users/edit_user"
+    else
+      erb :"users/login"
+    end
+  end
+
+  patch '/users/:id' do
+    @user = User.find(params[:id])
+    @user.username = params["username"] if params["username"] != ''
+    @user.email = params["email"] if params["email"] != ''
+    @user.password = params["password"] if params["password"] != ''
+    redirect "/users/#{@user.id}"
   end
 
   helpers do

@@ -1,6 +1,8 @@
-<a href="logout"><input type="submit" value="Log Out"></a>
+<a href="/"><img src="Drawing.png" alt="app logo" id="app logo"></a><a href="/activities"><input type="submit" value="Activities"></a> <a href="logout"><input type="submit" value="Log Out"></a>
 
-<h1>Your recent locations</h1>
+<h1>Hello, <%= current_user.username %>.</h1>
+
+<h2>Your recent locations</h2>
 
 <h3>This is a list of all the places you've visited recently. Click on any location to see the details.</h3>
 

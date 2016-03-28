@@ -1,0 +1,11 @@
+<form method="post" action="/users/<%=@user.id%>">
+  <input id="hidden" type="hidden" name="_method" value="PATCH">
+  <p>Username:</p>
+  <input type="text" name="username">
+  <p>Email:</p>
+  <input type="text" name="email">
+  <p>Password:</p>
+  <input type="text" name="password">
+  <br><br>
+  <input type="submit" id="submit" value="Save changes">
+</form>
