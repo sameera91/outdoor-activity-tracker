@@ -7,6 +7,11 @@
   <input id="hidden" type="hidden" name="_method" value="DELETE">
   <input type="submit" id="Delete Location" value="Delete Location">
 </form>
+<br>
+
+<% if flash[:notice] %>
+  <%= flash[:notice] %>
+<% end %>
 
 <h1>Location Details</h1>
 

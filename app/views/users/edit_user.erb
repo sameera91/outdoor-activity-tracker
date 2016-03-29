@@ -1,11 +1,18 @@
+<h1>Edit your account information</h1>
+
 <form method="post" action="/users/<%=@user.id%>">
   <input id="hidden" type="hidden" name="_method" value="PATCH">
   <p>Username:</p>
   <input type="text" name="username">
   <p>Email:</p>
-  <input type="text" name="email">
+  <input type="email" name="email">
   <p>Password:</p>
-  <input type="text" name="password">
+  <input type="password" name="password">
   <br><br>
   <input type="submit" id="submit" value="Save changes">
+</form>
+
+<form style="display:inline-block;" method="post" action="/users/<%=current_user.id%>/delete">
+  <input id="hidden" type="hidden" name="_method" value="DELETE">
+  <input type="submit" id="Delete Account" value="Delete Account">
 </form>

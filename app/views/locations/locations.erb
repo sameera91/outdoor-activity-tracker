@@ -1,5 +1,12 @@
 <a href="/"><img src="Drawing.png" alt="app logo" id="app logo"></a><a href="/activities"><input type="submit" value="Activities"></a> <a href="logout"><input type="submit" value="Log Out"></a>
 
+<a href="/users/<%=current_user.id%>/edit"><input type="submit" value="Edit Account Information"></a>
+<br><br>
+
+<% if flash[:message] %>
+  <%= flash[:message] %>
+<% end %>
+
 <h1>Hello, <%= current_user.username %>.</h1>
 
 <h2>Your recent locations</h2>

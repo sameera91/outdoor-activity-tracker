@@ -1,4 +1,6 @@
 require './config/environment'
+require 'sinatra/base'
+require 'sinatra/flash'
 
 class ApplicationController < Sinatra::Base
 
@@ -7,6 +9,7 @@ class ApplicationController < Sinatra::Base
     set :views, 'app/views'
     enable :sessions
     set :session_secret, "password_security"
+    register Sinatra::Flash
   end
 
   get '/' do
@@ -23,8 +26,9 @@ class ApplicationController < Sinatra::Base
 
   post '/activities' do
     @activity = Activity.create(name: params[:name], date: params[:date], time: params[:time], distance: params[:distance])
-    @activity.location = Location.create(name: params[:location])
+    @activity.location = Location.find_or_create_by(name: params[:location])
     @activity.save
+    flash[:notice] = "Activity successfully added."
     redirect '/activities'
   end
 
@@ -56,7 +60,7 @@ class ApplicationController < Sinatra::Base
        session[:user_id] = @user.id
        redirect "/locations"
      else
-       erb :"users/login", locals: {message: "Invalid username or password! Please try again."}
+       erb :"users/login", :locals => {:message => "Invalid username or password! Please try again."}
      end
   end
 
@@ -77,7 +81,8 @@ class ApplicationController < Sinatra::Base
   delete '/activities/:id/delete' do
     @activity = Activity.find_by(id: params[:id])
     @activity.delete
-    erb :"activities/activities"
+    flash[:notice] = "Activity successfully deleted."
+    redirect '/activities'
   end
 
   get '/activities/:id/edit' do
@@ -92,6 +97,7 @@ class ApplicationController < Sinatra::Base
     @activity.distance = params["distance"] if params["distance"] != ''
     @activity.notes = params["notes"] if params["notes"] != ''
     @activity.save
+    flash[:notice] = "Activity successfully edited."
     redirect "/activities/#{@activity.id}"
   end
 
@@ -109,7 +115,12 @@ class ApplicationController < Sinatra::Base
   end
 
   post '/locations' do
-    @location = Location.create(params)
+    if !Location.where(:name => params[:name]).exists?
+      @location = Location.create(params)
+      flash[:message] = "Location successfully added."
+    else
+      flash[:message] = "Location already exists. Select location from the list and add a new activity."
+    end
     erb :"locations/locations"
   end
 
@@ -125,12 +136,15 @@ class ApplicationController < Sinatra::Base
     @location.state = params["state"] if params["state"] != ''
     @location.country = params["country"] if params["country"] != ''
     @location.save
+    flash[:notice] = "Location successfully edited."
     redirect "/locations/#{@location.id}"
   end
 
   delete '/locations/:id/delete' do
     @location = Location.find_by(id: params[:id])
+    Activity.delete_all(location_id: @location.id)
     @location.delete
+    flash[:notice] = "Location and all associated activities have been deleted."
     erb :"locations/locations"
   end
 
@@ -153,7 +167,15 @@ class ApplicationController < Sinatra::Base
     @user.username = params["username"] if params["username"] != ''
     @user.email = params["email"] if params["email"] != ''
     @user.password = params["password"] if params["password"] != ''
+    @user.save
     redirect "/users/#{@user.id}"
+  end
+
+  delete '/users/:id/delete' do
+    @user = User.find_by(id: params[:id])
+    @user.delete
+    session.clear
+    erb :"users/create_user", locals: {message: "Your account has been deleted."}
   end
 
   helpers do

@@ -6,6 +6,11 @@
   <input id="hidden" type="hidden" name="_method" value="DELETE">
   <input type="submit" id="Delete Activity" value="Delete Activity"><br>
 </form>
+<br><br>
+
+<% if flash[:notice] %>
+  <%= flash[:notice] %>
+<% end %>
 
 <h1>Activity Details</h1>
 

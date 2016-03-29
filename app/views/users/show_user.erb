@@ -1,6 +1,11 @@
-<h1>Show user information</h1>
+<h1>Your account information</h1>
 
 <%= @user.username %><br>
 <%= @user.email %><br>
+<br>
+<a href="/users/<%=@user.id%>/edit"><input type="submit" value="Edit Account Information"></a>
 
-<a href="/users/<%=@user.id%>/edit"><input type="submit" value="Edit User"></a>
+<form style="display:inline-block;" method="post" action="/users/<%=@user.id%>/delete">
+  <input id="hidden" type="hidden" name="_method" value="DELETE">
+  <input type="submit" id="Delete Account" value="Delete Account">
+</form>
