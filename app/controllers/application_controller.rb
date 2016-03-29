@@ -12,6 +12,7 @@ class ApplicationController < Sinatra::Base
     register Sinatra::Flash
   end
 
+
   get '/' do
     erb :homepage
   end
@@ -115,8 +116,10 @@ class ApplicationController < Sinatra::Base
   end
 
   post '/locations' do
-    if !Location.where(:name => params[:name]).exists?
+    if !Location.where(:name => params[:name], :user_id => current_user.id).exists?
       @location = Location.create(params)
+      @location.user_id = current_user.id
+      @location.save
       flash[:message] = "Location successfully added."
     else
       flash[:message] = "Location already exists. Select location from the list and add a new activity."
