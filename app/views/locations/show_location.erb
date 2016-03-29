@@ -5,7 +5,7 @@
 
 <form style="display:inline-block;" method="post" action="/locations/<%=@location.id%>/delete">
   <input id="hidden" type="hidden" name="_method" value="DELETE">
-  <input type="submit" id="Delete Location" value="Delete Location">
+  <input type="submit" id="Delete Location" value="Remove location from your list">
 </form>
 <br>
 
@@ -39,7 +39,7 @@ Country:<br>
 <% end %>
 <br><br>
 
-<h2>Users at this location</h2>
+<h2>Users who have recently checked into this location:</h2>
 <% @location.users.each do |user| %>
     <%= user.username %><br>
 <% end %>

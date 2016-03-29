@@ -4,8 +4,12 @@
 <a href="/locations/all_locations"><input type="submit" value="All user locations"></a>
 <br><br>
 
-<% if flash[:message] %>
-  <%= flash[:message] %>
+<% if flash[:success] %>
+  <%= flash[:success] %>
+<% end %>
+
+<% if flash[:failure] %>
+  <%= flash[:failure] %>
 <% end %>
 
 <% if flash[:deleted] %>
