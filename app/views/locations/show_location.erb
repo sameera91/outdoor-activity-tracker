@@ -9,8 +9,8 @@
 </form>
 <br>
 
-<% if flash[:notice] %>
-  <%= flash[:notice] %>
+<% if flash[:edited] %>
+  <%= flash[:edited] %>
 <% end %>
 
 <h1>Location Details</h1>
@@ -39,6 +39,11 @@ Country:<br>
 <% end %>
 <br><br>
 
+<h2>Users at this location</h2>
+<% @location.users.each do |user| %>
+    <%= user.username %><br>
+<% end %>
+<br>
 <a href="/activities/new"><input type="submit" value="Add a new activity"></a>
 
 

@@ -1,0 +1,5 @@
+<h1>Locations that all users have visited</h1>
+
+<% Location.all.each do |location| %>
+   <a href="/locations/<%=location.id%>"><%= location.name %></a><br>
+<% end %>

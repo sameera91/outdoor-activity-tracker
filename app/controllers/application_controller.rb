@@ -7,7 +7,10 @@ class ApplicationController < Sinatra::Base
   configure do
     set :public_folder, 'public'
     set :views, 'app/views'
-    enable :sessions
+    #enable :sessions
+    use Rack::Session::Cookie, :key => 'rack.session',
+                           :path => '/',
+                           :secret => 'your_secret'
     set :session_secret, "password_security"
     register Sinatra::Flash
   end
@@ -110,16 +113,20 @@ class ApplicationController < Sinatra::Base
     erb :"locations/locations"
   end
 
+  get '/locations/all_locations' do
+    erb :"locations/all_locations"
+  end
+
   get '/locations/:id' do
     @location = Location.find(params[:id])
+    @location.users << current_user
     erb :"locations/show_location"
   end
 
   post '/locations' do
-    if !Location.where(:name => params[:name], :user_id => current_user.id).exists?
+    if !Location.where(:name => params[:name]).exists?
       @location = Location.create(params)
-      @location.user_id = current_user.id
-      @location.save
+      current_user.locations << @location
       flash[:message] = "Location successfully added."
     else
       flash[:message] = "Location already exists. Select location from the list and add a new activity."
@@ -139,7 +146,7 @@ class ApplicationController < Sinatra::Base
     @location.state = params["state"] if params["state"] != ''
     @location.country = params["country"] if params["country"] != ''
     @location.save
-    flash[:notice] = "Location successfully edited."
+    flash[:edited] = "Location successfully edited."
     redirect "/locations/#{@location.id}"
   end
 
@@ -147,7 +154,7 @@ class ApplicationController < Sinatra::Base
     @location = Location.find_by(id: params[:id])
     Activity.delete_all(location_id: @location.id)
     @location.delete
-    flash[:notice] = "Location and all associated activities have been deleted."
+    flash[:deleted] = "Location and all associated activities have been deleted."
     erb :"locations/locations"
   end
 

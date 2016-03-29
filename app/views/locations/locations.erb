@@ -1,10 +1,15 @@
 <a href="/"><img src="Drawing.png" alt="app logo" id="app logo"></a><a href="/activities"><input type="submit" value="Activities"></a> <a href="/logout"><input type="submit" value="Log Out"></a>
 
 <a href="/users/<%=current_user.id%>/edit"><input type="submit" value="Edit Account Information"></a>
+<a href="/locations/all_locations"><input type="submit" value="All user locations"></a>
 <br><br>
 
 <% if flash[:message] %>
   <%= flash[:message] %>
+<% end %>
+
+<% if flash[:deleted] %>
+  <%= flash[:deleted] %>
 <% end %>
 
 <h1>Hello, <%= current_user.username %>.</h1>
@@ -13,10 +18,8 @@
 
 <h3>This is a list of all the places you've visited recently. Click on any location to see the details.</h3>
 
-<% Location.all.each do |location| %>
-  <% if location.user_id == current_user.id %>
+<% current_user.locations.each do |location| %>
     <a href="/locations/<%=location.id%>"><%= location.name %></a><br>
-  <% end %>
 <% end %>
 <br><br>
 <a href="/locations/new"><input type="submit" value="Add a new location"></a>
