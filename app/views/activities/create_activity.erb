@@ -28,7 +28,7 @@
   <p>Distance:</p>
   <input type="text" placeholder="3 miles" name="distance" id="distance">
   <p>Select from your locations or go back to add one:</p>
-  <select>
+  <select name="location">
     <% current_user.locations.each do |location| %>
     <option><%= location.name %></option><br>
     <% end %>
