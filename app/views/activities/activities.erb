@@ -8,7 +8,9 @@
 <h1>Your recent activities:</h1>
 
 <% Activity.all.each do |activity| %>
-  <a href="/activities/<%=activity.id%>"><%= activity.name %> at <%=activity.location.name%></a><br>
+  <% if activity.user_id == current_user.id %>
+    <a href="/activities/<%=activity.id%>"><%= activity.name %> at <%=activity.location.name%></a><br>
+  <% end %>
 <% end %>
 <br>
 <a href="/activities/new"><input type="submit" value="Add a new activity"></a>

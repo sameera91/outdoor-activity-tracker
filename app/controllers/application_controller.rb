@@ -26,8 +26,8 @@ class ApplicationController < Sinatra::Base
   end
 
   post '/activities' do
-    @activity = Activity.create(name: params[:name], date: params[:date], time: params[:time], distance: params[:distance])
-    @activity.location = Location.find_or_create_by(name: params[:location])
+    @activity = Activity.create(name: params[:name], date: params[:date], time: params[:time], distance: params[:distance], :user_id => current_user.id)
+    @activity.location = Location.find_or_create_by(name: params[:location], :user_id => current_user.id)
     @activity.save
     flash[:notice] = "Activity successfully added."
     redirect '/activities'
