@@ -1,9 +1,4 @@
-<a href="/"><img src="Drawing.png" alt="app logo" id="app logo"></a><a href="/activities"><input type="submit" value="Activities"></a> <a href="/logout"><input type="submit" value="Log Out"></a>
-
-<a href="/users/<%=current_user.id%>/edit"><input type="submit" value="Edit Account Information"></a>
-<a href="/locations/all_locations"><input type="submit" value="All user locations"></a>
-<br><br>
-
+<br><br><br>
 <% if flash[:success] %>
   <%= flash[:success] %>
 <% end %>

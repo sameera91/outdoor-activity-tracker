@@ -1,15 +1,33 @@
-<a href="/activities"><input type="submit" value="Activities"></a> <a href="/locations"><input type="submit" value="Locations"></a> <a href="logout"><input type="submit" value="Log Out"></a>
-
 <h1>Edit Activity</h1>
 <form method="post" action="/activities/<%=@activity.id%>">
   <input id="hidden" type="hidden" name="_method" value="PATCH">
-  <p>Name (e.g. running, hiking, biking, rowing):</p>
-  <input type="text" placeholder="hiking" name="name">
+  <p>Select an activity:</p>
+  <select name="name">
+    <option>Running</option>
+    <option>Walking</option>
+    <option>Hiking</option>
+    <option>Biking</option>
+    <option>Backpacking</option>
+    <option>Climbing</option>
+    <option>Horseback Riding</option>
+    <option>Kayaking</option>
+    <option>Rowing</option>
+    <option>Sailing</option>
+    <option>Scuba Diving</option>
+    <option>Skiing</option>
+    <option>Snowboarding</option>
+    <option>Surfing</option>
+  </select>
   <p>Time spent or pace:</p>
   <input type="text" placeholder="13:00" name="time">
-  <p>Distance:</p>
+  <p>Distance covered:</p>
   <input type="text" placeholder="3 miles" name="distance" id="distance">
-
+  <p>Select from your locations or go back to add one:</p>
+  <select name="location">
+    <% current_user.locations.each do |location| %>
+    <option><%= location.name %></option><br>
+    <% end %>
+  </select>
   <p>Use this space to reflect on your activity and to jot down any other notes:</p>
   <textarea rows="4" cols="50" name="notes" id="notes"></textarea><br><br>
   <input type="submit" id="submit" value="Save changes">

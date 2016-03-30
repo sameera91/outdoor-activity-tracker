@@ -1,0 +1,20 @@
+<h1>Location Details</h1>
+
+Name:<br>
+
+<%= @location.name %><br><br>
+
+City:<br>
+<%= @location.city %><br><br>
+
+State:<br>
+<%= @location.state %><br><br>
+
+Country:<br>
+<%= @location.country %><br><br>
+
+<h2>Users who have recently checked into this location:</h2>
+<% @location.users.each do |user| %>
+    <%= user.username %><br>
+<% end %>
+<br>

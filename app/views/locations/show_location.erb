@@ -1,6 +1,4 @@
-<a href="/activities"><input type="submit" value="Activities"></a> <a href="/locations"><input type="submit" value="Locations"></a> <a href="/logout"><input type="submit" value="Log Out"></a>
 <br><br><br>
-
 <a href="/locations/<%=@location.id%>/edit"><input type="submit" value="Edit Location"></a>
 
 <form style="display:inline-block;" method="post" action="/locations/<%=@location.id%>/delete">
@@ -11,6 +9,10 @@
 
 <% if flash[:edited] %>
   <%= flash[:edited] %>
+<% end %>
+
+<% if flash[:failure] %>
+  <%= flash[:failure] %>
 <% end %>
 
 <h1>Location Details</h1>
@@ -28,9 +30,9 @@ State:<br>
 Country:<br>
 <%= @location.country %><br><br>
 
-<h2>What you have done recently at this location:</h2>
-<h3>Click on any activity for more information.</h3>
-<% Activity.all.each do |activity| %>
+<h2>Your recent activities at this location:</h2>
+
+<% current_user.activities.each do |activity| %>
  <% if activity.location != nil %>
    <% if activity.location.name == @location.name %>
      <a href="/activities/<%=activity.id%>"><%= activity.name %> on <%= activity.date %></a><br>
@@ -39,11 +41,7 @@ Country:<br>
 <% end %>
 <br><br>
 
-<h2>Users who have recently checked into this location:</h2>
-<% @location.users.each do |user| %>
-    <%= user.username %><br>
-<% end %>
-<br>
-<a href="/activities/new"><input type="submit" value="Add a new activity"></a>
+
+
 
 

@@ -14,7 +14,7 @@ class LocationsController < ApplicationController
 
   post '/locations' do
     if !Location.where(:name => params[:name]).exists? || !current_user.locations.any?{|location| location.name == params[:name]}
-      @location = Location.find_or_create_by(params)
+      @location = Location.find_or_create_by(name: params[:name])
       current_user.locations << @location unless current_user.locations.include?(@location)
       @location.users << current_user unless @location.users.include?(current_user)
       flash[:success] = "Location successfully added."
@@ -30,13 +30,15 @@ class LocationsController < ApplicationController
   end
 
   patch '/locations/:id' do
-    @location = Location.find(params[:id])
-    @location.name = params["name"] if params["name"] != ''
-    @location.city = params["city"] if params["city"] != ''
-    @location.state = params["state"] if params["state"] != ''
-    @location.country = params["country"] if params["country"] != ''
-    @location.save
-    flash[:edited] = "Location successfully edited."
+      @location = current_user.locations.find_by(id: params[:id])
+    if !Location.where(:name => params[:name]).exists? || !current_user.locations.any?{|location| location.name == params[:name]}
+      @location.update(name: params[:name], city: params[:city], state: params[:state], country: params[:country])
+      flash[:edited] = "Location successfully edited."
+    elsif Location.where(:name => params[:name]).exists? && !current_user.locations.any?{|location| location.name == params[:name]}
+      current_user.locations << Location.find_by(name: params[:name])
+    else
+      flash[:failure] = "Location already exists."
+    end
     redirect "/locations/#{@location.id}"
   end
 
@@ -52,6 +54,11 @@ class LocationsController < ApplicationController
   get '/locations/:id' do
     @location = Location.find(params[:id])
     erb :"locations/show_location"
+  end
+
+  get '/locations/all_locations/:id' do
+    @location = Location.find(params[:id])
+    erb :"locations/users_locations"
   end
 
 end
