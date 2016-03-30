@@ -1,4 +1,8 @@
 <br><br><br>
+<a href="/locations/new"><input type="submit" value="Add a new location"></a>
+<a href="/activities/new"><input type="submit" value="Add a new activity"></a>
+
+<br><br><br>
 <% if flash[:success] %>
   <%= flash[:success] %>
 <% end %>
@@ -13,7 +17,7 @@
 
 <h1>Hello, <%= current_user.username %>.</h1>
 
-<h2>Your recent locations</h2>
+<h2>Your Recent Locations:</h2>
 
 <h3>This is a list of all the places you've visited recently. Click on any location to see the details.</h3>
 
@@ -21,8 +25,4 @@
     <a href="/locations/<%=location.id%>"><%= location.name %></a><br>
 <% end %>
 <br><br>
-<a href="/locations/new"><input type="submit" value="Add a new location"></a>
-<br>
-<br>
-<a href="/activities/new"><input type="submit" value="Add a new activity"></a>
-<br><br>
+

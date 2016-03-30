@@ -58,7 +58,7 @@ class LocationsController < ApplicationController
 
   get '/locations/all_locations/:id' do
     @location = Location.find(params[:id])
-    erb :"locations/users_locations"
+    erb :"locations/users_location"
   end
 
 end
