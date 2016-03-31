@@ -38,15 +38,6 @@ class ActivitiesController < ApplicationController
     @activity = Activity.find(params[:id])
     @activity.update(name: params[:name], date: params[:date], time: params[:time], distance: params[:distance], notes: params[:notes], :user_id => current_user.id)
 
-=begin
-    @activity = Activity.find(params[:id])
-    @activity.name = params["name"] if params["name"] != ''
-    @activity.time = params["time"] if params["time"] != ''
-    @activity.distance = params["distance"] if params["distance"] != ''
-    @activity.location = Location.find_or_create_by(name: params[:location])
-    @activity.notes = params["notes"] if params["notes"] != ''
-=end
-    #@activity.save
     flash[:notice] = "Activity successfully edited."
     redirect "/activities/#{@activity.id}"
   end
