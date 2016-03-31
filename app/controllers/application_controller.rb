@@ -8,9 +8,7 @@ class ApplicationController < Sinatra::Base
     set :public_folder, 'public'
     set :views, 'app/views'
     #enable :sessions
-    use Rack::Session::Cookie, :key => 'rack.session',
-                           :path => '/',
-                           :secret => 'your_secret'
+    use Rack::Session::Cookie, :key => 'rack.session', :path => '/', :secret => 'your_secret'
     set :session_secret, "password_security"
     register Sinatra::Flash
   end

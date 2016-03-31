@@ -69,7 +69,7 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
     @user.delete
     session.clear
-    erb :"users/create_user", locals: {message: "Your account has been deleted."}
+    erb :"users/create_user", :layout => false, locals: {message: "Your account has been deleted."}
   end
 
 end
