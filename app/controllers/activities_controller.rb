@@ -9,7 +9,7 @@ class ActivitiesController < ApplicationController
   end
 
   post '/activities' do
-    @activity = Activity.create(name: params[:name], date: params[:date], time: params[:time], distance: params[:distance], :user_id => current_user.id)
+    @activity = Activity.create(name: params[:name], date: params[:date], time: params[:time], distance: params[:distance], notes: params[:notes], :user_id => current_user.id)
     @activity.location = Location.find_by(name: params[:location])
     @activity.save
     current_user.activities << @activity
