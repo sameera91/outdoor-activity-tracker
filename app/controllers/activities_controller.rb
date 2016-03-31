@@ -10,7 +10,7 @@ class ActivitiesController < ApplicationController
 
   post '/activities' do
     @activity = Activity.create(name: params[:name], date: params[:date], time: params[:time], distance: params[:distance], :user_id => current_user.id)
-    @activity.location = Location.create(name: params[:location])
+    @activity.location = Location.find_by(name: params[:location])
     @activity.save
     current_user.activities << @activity
     flash[:notice] = "Activity successfully added."
